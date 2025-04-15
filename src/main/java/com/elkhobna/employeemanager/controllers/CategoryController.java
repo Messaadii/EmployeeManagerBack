@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("/category")
+@RequestMapping("/rest/category")
 @RestController
 public class CategoryController {
 

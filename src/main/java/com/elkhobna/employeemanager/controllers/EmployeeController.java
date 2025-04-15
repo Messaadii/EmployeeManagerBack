@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("/employee")
+@RequestMapping("/rest/employee")
 @RestController
 public class EmployeeController {
 

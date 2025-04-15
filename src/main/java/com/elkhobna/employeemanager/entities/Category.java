@@ -10,7 +10,6 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 
 @Entity(name = "category_")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "name")
 public class Category {
     @Id
     private String name;

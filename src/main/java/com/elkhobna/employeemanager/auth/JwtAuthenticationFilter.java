@@ -1,6 +1,7 @@
 package com.elkhobna.employeemanager.auth;
 
 import com.elkhobna.employeemanager.services.JwtService;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -70,6 +71,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
 
             filterChain.doFilter(request, response);
+        } catch (ExpiredJwtException ex) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
+            response.getWriter().write("{\"message\": \"Session expired, please re-login\"}");
         } catch (Exception exception) {
             handlerExceptionResolver.resolveException(request, response, null, exception);
         }

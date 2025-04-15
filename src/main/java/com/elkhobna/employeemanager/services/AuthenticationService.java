@@ -1,6 +1,7 @@
 package com.elkhobna.employeemanager.services;
 
 import com.elkhobna.employeemanager.entities.User;
+import com.elkhobna.employeemanager.exceptions.BusinessException;
 import com.elkhobna.employeemanager.repositories.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,7 +33,7 @@ public class AuthenticationService {
     public User signup(User input) {
         Optional<User> user = userRepository.findByUsername(input.getUsername());
         if(user.isPresent()){
-            throw new RuntimeException("The username (" + input.getUsername() + ") is already used");
+            throw new BusinessException("The username (" + input.getUsername() + ") is already used");
         }
         input.setPassword(passwordEncoder.encode(input.getPassword()));
         return userRepository.save(input);

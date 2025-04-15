@@ -8,6 +8,7 @@ import com.elkhobna.employeemanager.exceptions.BusinessException;
 import com.elkhobna.employeemanager.repositories.DocumentRepository;
 import com.elkhobna.employeemanager.repositories.EmployeeRepository;
 import com.elkhobna.employeemanager.services.AuthenticationService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -76,6 +77,7 @@ public class DocumentController {
     }
 
     @GetMapping()
+    @Transactional
     public Page<Document> search(
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "category", required = false) String category,

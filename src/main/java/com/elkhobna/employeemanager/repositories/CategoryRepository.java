@@ -17,8 +17,8 @@ public interface CategoryRepository extends CrudRepository<Category, String> {
 
     @Query("""
         SELECT c FROM com.elkhobna.employeemanager.entities.Category c
-        WHERE (:name IS NULL OR LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%')))
-           and (:description IS NULL OR LOWER(c.description) LIKE LOWER(CONCAT('%', :description, '%')))
+        WHERE (:name IS NULL OR LOWER(c.name) LIKE LOWER(CONCAT('%', CAST(:name as text), '%')))
+           and (:description IS NULL OR LOWER(c.description) LIKE LOWER(CONCAT('%', CAST(:description as text), '%')))
     """)
     Page<Category> search(@Param("name") String name,
                           @Param("description") String description, Pageable pageable);

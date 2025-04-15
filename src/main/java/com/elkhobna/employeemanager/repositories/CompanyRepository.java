@@ -19,8 +19,8 @@ public interface CompanyRepository extends CrudRepository<Company, String> {
 
     @Query("""
         SELECT c FROM com.elkhobna.employeemanager.entities.Company c
-        WHERE (:name IS NULL OR LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%')))
-           and (:description IS NULL OR LOWER(c.description) LIKE LOWER(CONCAT('%', :description, '%')))
+        WHERE (:name IS NULL OR LOWER(c.name) LIKE LOWER(CONCAT('%', CAST(:name as text), '%')))
+           and (:description IS NULL OR LOWER(c.description) LIKE LOWER(CONCAT('%', CAST(:description as text), '%')))
     """)
     Page<Company> search(@Param("name") String name,
                           @Param("description") String description,

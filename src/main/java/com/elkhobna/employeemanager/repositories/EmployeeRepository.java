@@ -21,11 +21,11 @@ public interface EmployeeRepository extends CrudRepository<Employee, String> {
     @Query("""
         SELECT e FROM com.elkhobna.employeemanager.entities.Employee e
         LEFT JOIN e.company c
-        WHERE (:cin IS NULL OR LOWER(e.cin) LIKE LOWER(CONCAT('%', :cin, '%')))
+        WHERE (:cin IS NULL OR LOWER(e.cin) LIKE LOWER(CONCAT('%', CAST(:cin as text), '%')))
            and (:id IS NULL OR e.id = :id)
-           and (:name IS NULL OR LOWER(e.name) LIKE LOWER(CONCAT('%', :name, '%')))
-           and (:familyName IS NULL OR LOWER(e.familyName) LIKE LOWER(CONCAT('%', :familyName, '%')))
-           and (:company IS NULL OR LOWER(c.name) LIKE LOWER(CONCAT('%', :company, '%')))
+           and (:name IS NULL OR LOWER(e.name) LIKE LOWER(CONCAT('%', CAST(:name as text), '%')))
+           and (:familyName IS NULL OR LOWER(e.familyName) LIKE LOWER(CONCAT('%', CAST(:familyName as text), '%')))
+           and (:company IS NULL OR LOWER(c.name) LIKE LOWER(CONCAT('%', CAST(:company as text), '%')))
            and (:joiningDate IS NULL OR e.joiningDate = :joiningDate)
     """)
     Page<Employee> search(@Param(value = "cin") String cin,
